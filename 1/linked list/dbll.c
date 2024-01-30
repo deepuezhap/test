@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdio.h>
 #include <stdlib.h>
 
 struct node
@@ -70,11 +69,11 @@ void insertat()
 			i++;
 		}
 		newnode->next = temp->next;
-		newnode->prev = temp;
+        temp->next = newnode;
 
-		temp->next->prev = newnode;
+        newnode->prev=temp;// link to prev
+        newnode->next->prev=newnode; // link to prev
 
-		temp->next = newnode;
 	}
 	display();
 }
@@ -136,44 +135,37 @@ void deleteend() // same as that of singly linked list
 
 void deleteat()
 {
+    int pos;
+    printf("entert the pos : ");
+    scanf("%d", &pos);
+    temp = head;
+    if (pos == 1)
+        deletebeg();
+    else
+    {
+        int i = 1;
+        while (i < pos - 1)
+        {
+            if (temp->next == NULL)
+            {
+                printf("Invalid pos \n");
+                return;
+            }
+            temp = temp->next;
+            i++;
+        }
+        del = temp->next;
 
-	int pos, a;
+        printf("%d is deleted \n", del->data);
 
-	printf("enter the position to delete: ");
-	scanf("%d", &pos);
-	int i = 1;
-	temp = head;
-	if (pos == 1)
-	{
-		del = head; // if first node is to be deleted
-		head = head->next;
-		head->prev = NULL;
-		free(del);
-	}
-	else
-	{
+        temp->next = del->next;
+        temp->next->prev=temp; //removing and adding link from next nodeto the prev node
 
-		while (i < pos - 1)
-		{
-			temp = temp->next;
-			if (temp->next == NULL)
-			{
-
-				printf("invalid pos");
-				exit(0);
-			}
-			i++;
-		}
-
-		del = temp->next;
-		printf("%d is deleted \n", del->data);
-		temp->next = del->next;
-		del->next->prev = temp;
-
-		free(del);
-		display();
-	}
+        free(del);
+    }
 }
+
+
 
 void search()
 {
