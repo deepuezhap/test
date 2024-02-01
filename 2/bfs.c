@@ -38,7 +38,7 @@ void main()
 
     for(int i=0;i<n;i++)
     {
-        visited[i]=0;
+        visited[i]=0; //making visited array 0 for all elements
         for(int j=0;j<n;j++)
         scanf("%d",&ar[i][j]);
     }
