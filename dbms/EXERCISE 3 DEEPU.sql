@@ -87,12 +87,46 @@ inner join grade_report on section.section_identifier = grade_report.section_ide
 inner join student on student.student_number=grade_report.student_number
 where course_name = "database" and semester="fall" and year=8;
 
-
+-- question 5  
 select prerequisite.prerequisite_number from course
 inner join prerequisite on course.course_number=prerequisite.course_number
 where course_name="database";
 
 
+-- question 6 
+select name from student where major="CS";
+
+-- question 7
+select c.Course_name from course c inner join section s on c.Course_number=s.Course_number
+where s.Instructor="King" and Year in (07,08);
+
+
+select c.Course_name from course c inner join section s on c.Course_number=s.Course_number
+ where s.Instructor="King" and Year in (07,08);
+
+select Course_number,Semester,Year, Instructor,count(Student_number) from section inner join 
+Grade_report on Section.Section_identifier=Grade_report.Section_identifier 
+group by Grade_report.Section_identifier having instructor="King"; 
+
+select Name,course.Course_number,Course_name,Credit_hours,Semester,Year,Grade 
+from student inner join grade_report on student.Student_number = grade_report.Student_number 
+inner join section on grade_report.Section_identifier=section.Section_identifier 
+inner join course on section.Course_number=course.Course_number where Class=2 and Major="cs";
+
+insert into Student values('Johnson',25,1,'Math');
+
+
+SET SQL_SAFE_UPDATES=0;
+update Student set class=2 where Name='Smith';
+SET SQL_SAFE_UPDATES=1;
+
+insert into Course values("Knowledge Engineering","CS4390",3,"CS");
+
+delete from student where name="Smith" and student_number=17;
+
+create view stud as select Name from student where major="CS";
+
+select * from stud;
 
 
 
